@@ -2,11 +2,11 @@
 
 import click
 
-from .main import generate
+from .main import generate_exports
 
 
 @click.command()
-@click.option('--version', required=True, type=str, help='The version number to label the output with.')
+@click.option('-v', '--version', required=True, type=str, help='The version number to label the output with.')
 def generate(version: str):
     """CLI wrapper for the main generate function."""
-    generate(version)
+    generate_exports(version)

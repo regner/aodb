@@ -9,14 +9,18 @@ from xml.dom import minidom
 class BaseExporter(metaclass=ABCMeta):
     """Base exporter class that implements common functionality between all exporters."""
 
-    def __init__(self, input_file: str):
+    def __init__(self, input_file: str, export_file: str):
         """
         
         :param input_file: Location of the input file to be loaded.
+        :param export_file: String location for where to save the file. Importantly the string
+        must contain the Python format syntax so each exporter can set the file extension. For
+        example a valid input would be `exports/items.{}`.
         """
 
         self.input = None
         self.input_file = input_file
+        self.export_file = export_file
 
     @staticmethod
     def _clean_input(input: str) -> str:
@@ -30,8 +34,8 @@ class BaseExporter(metaclass=ABCMeta):
 
         dirty_xml = search.group(1)
 
-        clean_xml = re.sub(r'\\r\\n\s*', '', dirty_xml)
-        clean_xml = re.sub(r'\\n\s*', '', clean_xml)
+        clean_xml = re.sub(r'\\r\\n\s*', ' ', dirty_xml)
+        clean_xml = re.sub(r'\\n\s*', ' ', clean_xml)
 
         parsed_xml = minidom.parseString(clean_xml)
         pretty_xml = parsed_xml.toprettyxml(indent='\t')
@@ -47,15 +51,10 @@ class BaseExporter(metaclass=ABCMeta):
             self.input = self._clean_input(raw_input)
 
     @abstractmethod
-    def _generate_export(self, export_file: str):
+    def _generate_export(self):
         """The business logic of each exporter. Assume self._load_input has been run."""
 
-    def genreate_export(self, export_file: str):
-        """Generates the actual export.
-        
-        :param export_file: String location for where to save the file. Importantly the string
-        must contain the Python format syntax so each exporter can set the file extension. For
-        example a valid input would be `exports/items.{}`.
-        """
+    def genreate_export(self):
+        """Generates the actual export."""
         self._load_input()
-        self._generate_export(export_file)
+        self._generate_export()

@@ -1,5 +1,6 @@
 
 
+import re
 from json import dump
 from xmljson import gdata
 from xml.etree.ElementTree import fromstring
@@ -8,13 +9,13 @@ from .base import BaseExporter
 
 
 class JsonExporter(BaseExporter):
-    def _generate_export(self, export_file: str):
-        export_file = export_file.format('json')
+    def _generate_export(self):
+        export_file = self.export_file.format('json')
 
-        clean = self.input.replace(
-            ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Items.xsd"',
+        clean = re.sub(
+            r' xmlns:xsi="http:\/\/www\.w3\.org\/2001\/XMLSchema-instance" xsi:noNamespaceSchemaLocation=".*\.xsd"',
             '',
-            1
+            self.input
         )
 
         json = gdata.data(fromstring(clean))
