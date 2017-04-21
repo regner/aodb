@@ -4,6 +4,7 @@ import tarfile
 
 from os import mkdir, listdir
 from os.path import exists, isfile, join
+from google.cloud import storage
 from collections import defaultdict
 
 from . import exporters
@@ -12,6 +13,8 @@ from.resources import RESOURCES
 
 DEFAULT_INPUT = 'inputs/'
 DEFAULT_OUTPUT = 'outputs/'
+
+GCLOUD_STORAGE_DIR = 'albion/staticdata/exports'
 
 
 def get_input_path(name: str, input_folder: str = DEFAULT_INPUT) -> str:
@@ -71,3 +74,24 @@ def compress_exports(version: str):
         with tarfile.open(full_path, 'w:gz') as out_file:
             for file in files:
                 out_file.add(file)
+
+
+def upload_exports(version: str, bucket_name: str):
+    """Uploads all the compressed exports to Google Cloud Storage."""
+    print('Uploading compressed exports to Google Cloud Storage...')
+
+    client = storage.Client()
+    bucket = client.get_bucket(bucket_name)
+
+    folder_path = get_output_version_folder(version)
+
+    for file in listdir(folder_path):
+        if file.endswith('.gz'):
+            blob_path = join(GCLOUD_STORAGE_DIR, version, file)
+            blob = storage.Blob(blob_path, bucket)
+
+            full_path = join(folder_path, file)
+
+            with open(full_path, 'rb') as in_file:
+                print(f'Uploading {full_path} to {blob_path}...')
+                blob.upload_from_file(in_file)
