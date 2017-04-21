@@ -54,7 +54,7 @@ class BaseExporter(metaclass=ABCMeta):
     def _generate_export(self):
         """The business logic of each exporter. Assume self._load_input has been run."""
 
-    def genreate_export(self):
+    def generate_export(self):
         """Generates the actual export."""
         self._load_input()
         self._generate_export()

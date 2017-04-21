@@ -16,7 +16,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'aodb = aodb.cli:generate',
+            'aodb = aodb.cli:cli',
         ],
     },
     classifiers=[
