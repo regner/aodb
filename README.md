@@ -10,5 +10,34 @@ instructions on how to do that:
 * Export raw for each of the assets and name them "asset.txt", for example "items.txt"
 
 The required exports are:
+* accessrights
+* achievements
+* agentreferences
+* agents
+* audio
+* buildings
+* characters
+* clustertexts
+* emotes
+* expeditionagents
+* expeditioncategories
+* expeditions
+* factions
+* gamedata
+* hints
+* itemroles
 * items
 * localization
+* loot
+* missions
+* mobs
+* resourcedistpresets
+* resources
+* sockets
+* spells
+* territorytypes
+* tiles
+* treasures
+* world
+* worldbosses
+* worldsettings
