@@ -1,0 +1,4 @@
+0 TextAsset Base
+ 1 string m_Name = "clustertexts"
+ 1 string m_Script = "<?xml version="1.0" encoding="utf-8" standalone="yes"?>\r\n\r\n<clustertexts defaultimage="Cluster_default" >\r\n  <clustertext tag="DEFAULT" showrandomly="true" image="Cluster_default" locatag="@LOADING_CLUSTER_TEXTS_DEFAULT" />\r\n  <clustertext tag="CITY" showrandomly="true" image="Cluster_City" locatag="@LOADING_CLUSTER_TEXTS_DEFAULT" />\r\n</clustertexts>\r\n"
+ 1 string m_PathName = ""
