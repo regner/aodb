@@ -14,8 +14,6 @@ from.resources import RESOURCES
 DEFAULT_INPUT = 'inputs/'
 DEFAULT_OUTPUT = 'outputs/'
 
-GCLOUD_STORAGE_DIR = 'albion/staticdata/exports'
-
 
 def get_input_path(name: str, input_folder: str = DEFAULT_INPUT) -> str:
     file_name = f'{name}.txt'
@@ -87,11 +85,10 @@ def upload_exports(version: str, bucket_name: str):
 
     for file in listdir(folder_path):
         if file.endswith('.gz'):
-            blob_path = join(GCLOUD_STORAGE_DIR, version, file)
-            blob = storage.Blob(blob_path, bucket)
+            blob = storage.Blob(file, bucket)
 
             full_path = join(folder_path, file)
 
             with open(full_path, 'rb') as in_file:
-                print(f'Uploading {full_path} to {blob_path}...')
+                print(f'Uploading {full_path} to {bucket_name}...')
                 blob.upload_from_file(in_file)
