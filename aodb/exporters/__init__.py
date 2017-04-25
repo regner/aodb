@@ -1,11 +1,12 @@
 
 
-from . import sqlite
 from .base import BaseExporter
-from .json import JsonExporter
-from .xml import XmlExporter
+from .json import JSONExporter
+from .xml import XMLExporter
+from .sqlite import SQLiteExporter
 
 base_exporters = [
-    JsonExporter,
-    XmlExporter,
+    JSONExporter,
+    XMLExporter,
+    SQLiteExporter,
 ]

@@ -1,14 +1,10 @@
-
-
 import sqlite3
 
-from typing import List
-
-from . import const_tables
-from ..base import BaseExporter
+from .base import BaseExporter
+from .consts import sqlite_tables
 
 
-class BaseSQLiteExporter(BaseExporter):
+class SQLiteExporter(BaseExporter):
     def __init__(self, input_file: str, export_file: str):
         super().__init__(input_file, export_file)
 
@@ -18,14 +14,14 @@ class BaseSQLiteExporter(BaseExporter):
         self.export_file = f'{beginning}.{ending}'
         self.conn = None
 
-    def init_db(self, tables: List[str]):
+    def init_db(self):
         file = self.export_file.format('db')
 
         self.conn = sqlite3.connect(file)
         cursor = self.conn.cursor()
 
-        for table in tables:
-            cursor.execute(const_tables.CREATE_TABLES[table])
+        for table in sqlite_tables.CREATE_TABLES.values():
+            cursor.execute(table)
 
         self.conn.commit()
 
@@ -37,10 +33,10 @@ class BaseSQLiteExporter(BaseExporter):
     def process_elements(self, parent):
         for child in parent:
             if child.tag == 'farmableitem':
-                self.process_element(child, const_tables.TN_FarmableItems)
+                self.process_element(child, sqlite_tables.TN_FarmableItems)
 
             elif child.tag == 'stackableitem':
-                self.process_element(child, const_tables.TN_StackableItems)
+                self.process_element(child, sqlite_tables.TN_StackableItems)
 
     @staticmethod
     def attributes_to_sql(element, columns=None, values=None):
@@ -64,3 +60,7 @@ class BaseSQLiteExporter(BaseExporter):
         sql = f'INSERT INTO {table} ({columns}) VALUES ({values});'
 
         self.execute_sql(sql)
+
+    def _generate_export(self):
+        self.init_db()
+        self.process_elements(self.get_xml_root())

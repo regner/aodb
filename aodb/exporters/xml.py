@@ -5,7 +5,7 @@ from xml.dom import minidom
 from .base import BaseExporter
 
 
-class XmlExporter(BaseExporter):
+class XMLExporter(BaseExporter):
     def _generate_export(self):
         export_file = self.export_file.format('xml')
 

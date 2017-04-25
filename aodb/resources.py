@@ -69,7 +69,7 @@ RESOURCES = [
     },
     {
         'name': 'items',
-        'custom_exporters': [exporters.sqlite.SQLiteExporterItems],
+        'custom_exporters': [],
     },
     {
         'name': 'localization',

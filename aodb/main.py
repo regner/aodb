@@ -8,7 +8,8 @@ from os.path import exists, isfile, join
 from google.cloud import storage
 from collections import defaultdict
 
-from.resources import RESOURCES
+from . import exporters
+from .resources import RESOURCES
 
 
 DEFAULT_INPUT = 'inputs/'
@@ -48,8 +49,8 @@ def generate_exports(version: str):
         input_path = get_input_path(name)
         output_path = get_output_path(name, version, output_folder)
 
-        # for exporter in exporters.base_exporters:
-        #     run_exporter(exporter, input_path, output_path)
+        for exporter in exporters.base_exporters:
+            run_exporter(exporter, input_path, output_path)
 
         for exporter in resource['custom_exporters']:
             run_exporter(exporter, input_path, output_path)
