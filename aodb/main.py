@@ -48,8 +48,8 @@ def generate_exports(version: str):
         input_path = get_input_path(name)
         output_path = get_output_path(name, version, output_folder)
 
-        # for exporter in exporters.base_exporters:
-        #     run_exporter(exporter, input_path, output_path)
+        for exporter in exporters.base_exporters:
+            run_exporter(exporter, input_path, output_path)
 
         for exporter in resource['custom_exporters']:
             run_exporter(exporter, input_path, output_path)

@@ -1,0 +1,25 @@
+
+
+farmable_item = [
+    'activefarmactiondurationseconds',
+    'activefarmbonus',
+    'activefarmcyclelengthseconds',
+    'activefarmfocuscost',
+    'activefarmmaxcycles',
+    'animationid',
+    'craftfamegainfactor',
+    'destroyable',
+    'kind',
+    'maxstacksize',
+    'pickupable',
+    'placecost',
+    'placefame',
+    'shopcategory',
+    'shopsubcategory1',
+    'tier',
+    'uiatlas',
+    'uniquename',
+    'unlockedtocraft',
+    'unlockedtoplace',
+    'weight',
+]

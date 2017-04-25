@@ -11,3 +11,4 @@ class SQLiteExporterItems(BaseSQLiteExporter):
         ]
 
         self.init_db(tables)
+        self.process_elements(self.get_xml_root())

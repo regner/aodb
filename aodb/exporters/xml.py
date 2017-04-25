@@ -1,5 +1,7 @@
 
 
+from xml.dom import minidom
+
 from .base import BaseExporter
 
 
@@ -8,4 +10,7 @@ class XmlExporter(BaseExporter):
         export_file = self.export_file.format('xml')
 
         with open(export_file, 'w') as out_file:
-            out_file.write(self.input)
+            parsed_xml = minidom.parseString(self.input)
+            pretty_xml = parsed_xml.toprettyxml(indent='\t')
+
+            out_file.write(pretty_xml)
