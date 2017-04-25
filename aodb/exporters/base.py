@@ -23,14 +23,14 @@ class BaseExporter(metaclass=ABCMeta):
         self.export_file = export_file
 
     @staticmethod
-    def _clean_input(input: str) -> str:
+    def _clean_input(dirty_input: str) -> str:
         """Cleans the string that was loaded from the input file.
         
-        :param input: The raw string from the source file to be cleaned.
+        :param dirty_input: The raw string from the source file to be cleaned.
         """
 
         pattern = re.compile(r'string m_Script = "(.*)"\n 1 string')
-        search = re.search(pattern, input)
+        search = re.search(pattern, dirty_input)
 
         dirty_xml = search.group(1)
 

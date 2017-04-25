@@ -29,6 +29,10 @@ def get_output_path(name: str, version: str, output_folder) -> str:
     return join(output_folder, file_name)
 
 
+def run_exporter(exporter, input_path: str, output_path: str):
+    exporter(input_path, output_path).generate_export()
+
+
 def generate_exports(version: str):
     """Generates the database conversions."""
     print('Generating exports...')
@@ -44,8 +48,11 @@ def generate_exports(version: str):
         input_path = get_input_path(name)
         output_path = get_output_path(name, version, output_folder)
 
-        exporters.XmlExporter(input_path, output_path).generate_export()
-        exporters.JsonExporter(input_path, output_path).generate_export()
+        # for exporter in exporters.base_exporters:
+        #     run_exporter(exporter, input_path, output_path)
+
+        for exporter in resource['custom_exporters']:
+            run_exporter(exporter, input_path, output_path)
 
 
 def compress_exports(version: str):

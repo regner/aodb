@@ -1,3 +1,7 @@
+
+
+from . import exporters
+
 RESOURCES = [
     {
         'name': 'accessrights',
@@ -65,7 +69,7 @@ RESOURCES = [
     },
     {
         'name': 'items',
-        'custom_exporters': [],
+        'custom_exporters': [exporters.sqlite.SQLiteExporterItems],
     },
     {
         'name': 'localization',
