@@ -41,6 +41,21 @@ class SQLiteExporter(BaseExporter):
             elif child.tag == 'consumableitem':
                 self.process_element(child, sqlite_tables.TN_ConsumableItems)
 
+            elif child.tag == 'equipmentitem':
+                self.process_element(child, sqlite_tables.TN_EquipmentItems)
+
+            elif child.tag == 'weapon':
+                self.process_element(child, sqlite_tables.TN_Weapons)
+
+            elif child.tag == 'mount':
+                self.process_element(child, sqlite_tables.TN_Mounts)
+
+            elif child.tag == 'furnitureitem':
+                self.process_element(child, sqlite_tables.TN_FurnitureItems)
+
+            elif child.tag == 'journalitem':
+                self.process_element(child, sqlite_tables.TN_JournalItems)
+
     @staticmethod
     def attributes_to_sql(element, columns=None, values=None):
         if columns is None:
