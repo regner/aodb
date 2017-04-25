@@ -1,6 +1,7 @@
 
 
 TN_FarmableItems = 'FarmableItems'
+TN_StackableItems = 'StackableItems'
 
 create_farmable_items = f'''
     CREATE TABLE IF NOT EXISTS {TN_FarmableItems} (
@@ -33,6 +34,32 @@ create_farmable_items = f'''
     )
 '''
 
+create_stackable_items = f'''
+    CREATE TABLE IF NOT EXISTS {TN_StackableItems} (
+        uniquename STRING PRIMARY KEY,
+        tier INTEGER,
+        foodcategory STRING,
+        maxstacksize INTEGER,
+        nutrition INTEGER,
+        resourcetype STRING,
+        shopcategory STRING,
+        shopsubcategory1 STRING,
+        uiatlas STRING,
+        weight FLOAT,
+        uisprite STRING,
+        unlockedtocraft BOOLEAN,
+        craftfamegainfactor FLOAT,
+        enchantmentlevel INTEGER,
+        descriptionlocatag STRING,
+        descvariable0 STRING,
+        descvariable1 STRING,
+        itemvalue INTEGER,
+        salvageable BOOLEAN,
+        showinmarketplace BOOLEAN DEFAULT "true"
+    )
+'''
+
 CREATE_TABLES = {
     TN_FarmableItems: create_farmable_items,
+    TN_StackableItems: create_stackable_items,
 }

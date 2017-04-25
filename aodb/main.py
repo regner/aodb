@@ -1,13 +1,13 @@
 
 
+import shutil
 import tarfile
 
-from os import mkdir, listdir
+from os import makedirs, listdir
 from os.path import exists, isfile, join
 from google.cloud import storage
 from collections import defaultdict
 
-from . import exporters
 from.resources import RESOURCES
 
 
@@ -39,7 +39,7 @@ def generate_exports(version: str):
 
     output_folder = get_output_version_folder(version)
     if not exists(output_folder):
-        mkdir(output_folder)
+        makedirs(output_folder)
 
     for resource in RESOURCES:
         name = resource['name']
@@ -99,3 +99,9 @@ def upload_exports(version: str, bucket_name: str):
             with open(full_path, 'rb') as in_file:
                 print(f'Uploading {full_path} to {bucket_name}...')
                 blob.upload_from_file(in_file)
+
+
+def clean_output_folder():
+    """Removes the contents of the output folder."""
+    if exists(DEFAULT_OUTPUT):
+        shutil.rmtree(DEFAULT_OUTPUT)

@@ -1,13 +1,14 @@
 
 
+from . import const_tables
 from .base import BaseSQLiteExporter
-from .const_tables import TN_FarmableItems
 
 
 class SQLiteExporterItems(BaseSQLiteExporter):
     def _generate_export(self):
         tables = [
-            TN_FarmableItems,
+            const_tables.TN_FarmableItems,
+            const_tables.TN_StackableItems,
         ]
 
         self.init_db(tables)

@@ -37,7 +37,10 @@ class BaseSQLiteExporter(BaseExporter):
     def process_elements(self, parent):
         for child in parent:
             if child.tag == 'farmableitem':
-                self.process_farmable_item(child)
+                self.process_element(child, const_tables.TN_FarmableItems)
+
+            elif child.tag == 'stackableitem':
+                self.process_element(child, const_tables.TN_StackableItems)
 
     @staticmethod
     def attributes_to_sql(element, columns=None, values=None):
@@ -56,9 +59,8 @@ class BaseSQLiteExporter(BaseExporter):
 
         return columns, values
 
-    def process_farmable_item(self, item):
-        """Processes and saves a Farmable Item."""
-        columns, values = self.attributes_to_sql(item)
-        sql = f'INSERT INTO {const_tables.TN_FarmableItems} ({columns}) VALUES ({values});'
+    def process_element(self, element, table):
+        columns, values = self.attributes_to_sql(element)
+        sql = f'INSERT INTO {table} ({columns}) VALUES ({values});'
 
         self.execute_sql(sql)

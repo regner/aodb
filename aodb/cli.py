@@ -2,7 +2,7 @@
 
 import click
 
-from .main import generate_exports, compress_exports, upload_exports
+from .main import generate_exports, compress_exports, upload_exports, clean_output_folder
 
 
 @click.group()
@@ -13,9 +13,13 @@ def cli(ctx):
 
 @cli.command()
 @click.option('-v', '--version', required=True, type=str, help='The version number to label the output with.')
+@click.option('-c', '--clean', is_flag=True, default=False, help='Remove the contents of the output folder first.')
 @click.pass_context
-def generate(ctx, version: str):
+def generate(ctx, version: str, clean: bool):
     """CLI wrapper for the main generate function."""
+    if clean:
+        clean_output_folder()
+
     generate_exports(version)
 
 
