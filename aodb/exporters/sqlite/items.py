@@ -1,7 +1,7 @@
 
 
 from .base import BaseSQLiteExporter
-from .tables import TN_FarmableItems
+from .const_tables import TN_FarmableItems
 
 
 class SQLiteExporterItems(BaseSQLiteExporter):

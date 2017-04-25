@@ -4,7 +4,7 @@ import sqlite3
 
 from typing import List
 
-from .tables import CREATE_TABLES
+from . import const_tables
 from ..base import BaseExporter
 
 
@@ -25,8 +25,13 @@ class BaseSQLiteExporter(BaseExporter):
         cursor = self.conn.cursor()
 
         for table in tables:
-            cursor.execute(CREATE_TABLES[table])
+            cursor.execute(const_tables.CREATE_TABLES[table])
 
+        self.conn.commit()
+
+    def execute_sql(self, sql):
+        cursor = self.conn.cursor()
+        cursor.execute(sql)
         self.conn.commit()
 
     def process_elements(self, parent):
@@ -34,23 +39,26 @@ class BaseSQLiteExporter(BaseExporter):
             if child.tag == 'farmableitem':
                 self.process_farmable_item(child)
 
-            self.process_elements(child)
+    @staticmethod
+    def attributes_to_sql(element, columns=None, values=None):
+        if columns is None:
+            columns = ''
 
-    def process_element(self, item, attrs_map):
-        for attr in attr_mandatory:
-            print(item.attrib[attr])
+        if values is None:
+            values = ''
 
-        for attr in attr_optional:
-            if attr in item.attrib:
-                print(item.attrib[attr])
+        for k, v in element.attrib.items():
+            columns += f'{k},'
+            values += f'"{v}",'
+
+        columns = columns.strip(',')
+        values = values.strip(',')
+
+        return columns, values
 
     def process_farmable_item(self, item):
         """Processes and saves a Farmable Item."""
+        columns, values = self.attributes_to_sql(item)
+        sql = f'INSERT INTO {const_tables.TN_FarmableItems} ({columns}) VALUES ({values});'
 
-
-        # Mandatory attributes
-        print(item.attrib['uniquename'])
-
-        # Optional attributes
-
-        print(item.attrib['activefarmactiondurationseconds'])
+        self.execute_sql(sql)
