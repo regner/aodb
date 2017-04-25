@@ -38,6 +38,9 @@ class SQLiteExporter(BaseExporter):
             elif child.tag == 'stackableitem':
                 self.process_element(child, sqlite_tables.TN_StackableItems)
 
+            elif child.tag == 'consumableitem':
+                self.process_element(child, sqlite_tables.TN_ConsumableItems)
+
     @staticmethod
     def attributes_to_sql(element, columns=None, values=None):
         if columns is None:

@@ -2,6 +2,7 @@
 
 TN_FarmableItems = 'FarmableItems'
 TN_StackableItems = 'StackableItems'
+TN_ConsumableItems = 'ConsumableItems'
 
 create_farmable_items = f'''
     CREATE TABLE IF NOT EXISTS {TN_FarmableItems} (
@@ -59,7 +60,27 @@ create_stackable_items = f'''
     )
 '''
 
+create_consumeable_items = f'''
+    CREATE TABLE IF NOT EXISTS {TN_ConsumableItems} (
+        uniquename STRING PRIMARY KEY,
+        tier INTEGER,
+        abilitypower INTEGER,
+        consumespell STRING,
+        maxstacksize INTEGER,
+        shopcategory STRING,
+        shopsubcategory1 STRING,
+        slottype STRING,
+        uiatlas STRING,
+        weight FLOAT,
+        uisprite STRING,
+        unlockedtocraft BOOLEAN,
+        unlockedtoequip BOOLEAN,
+        nutrition INTEGER
+    )
+'''
+
 CREATE_TABLES = {
     TN_FarmableItems: create_farmable_items,
     TN_StackableItems: create_stackable_items,
+    TN_ConsumableItems: create_consumeable_items,
 }
