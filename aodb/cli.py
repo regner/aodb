@@ -2,7 +2,7 @@
 
 import click
 
-from .main import generate_exports, compress_exports, upload_exports, clean_output_folder
+from .main import generate_exports, compress_exports, upload_exports, clean_output_folder, generate_basic_scheme
 
 
 @click.group()
@@ -38,3 +38,9 @@ def compress(ctx, version: str):
 def upload(ctx, version: str, bucket: str):
     """CLI wrapper for the main upload function."""
     upload_exports(version, bucket)
+
+
+@cli.command()
+@click.pass_context
+def scheme(ctx):
+    generate_basic_scheme()

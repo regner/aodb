@@ -106,3 +106,14 @@ def clean_output_folder():
     """Removes the contents of the output folder."""
     if exists(DEFAULT_OUTPUT):
         shutil.rmtree(DEFAULT_OUTPUT)
+
+
+def generate_basic_scheme():
+    for resource in RESOURCES:
+        name = resource['name']
+        print(f'Creating basic scheme for {name}...')
+
+        input_path = get_input_path(name)
+
+        exporter = exporters.JSONExporter(input_path, '')
+        exporter.generate_basic_scheme()
