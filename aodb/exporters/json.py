@@ -1,9 +1,10 @@
 
 
 import re
+
 from json import dump
 from xmljson import gdata
-from xml.etree.ElementTree import fromstring
+from xml.etree import ElementTree
 
 from .base import BaseExporter
 
@@ -18,7 +19,7 @@ class JsonExporter(BaseExporter):
             self.input
         )
 
-        json = gdata.data(fromstring(clean))
+        json = gdata.data(ElementTree.fromstring(clean))
 
         with open(export_file, 'w') as out_file:
             dump(json, out_file, indent=4)
