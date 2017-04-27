@@ -11,6 +11,7 @@ class XMLExporter(BaseExporter):
 
         with open(export_file, 'w') as out_file:
             parsed_xml = minidom.parseString(self.input)
-            pretty_xml = parsed_xml.toprettyxml(indent='\t')
+            pretty_xml = parsed_xml.toprettyxml()
+            trimmed_xml = '\n'.join([line for line in pretty_xml.split('\n') if line.strip()])
 
-            out_file.write(pretty_xml)
+            out_file.write(trimmed_xml)
