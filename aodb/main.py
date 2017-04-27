@@ -44,8 +44,8 @@ def generate_exports(version: str):
         input_path = get_input_path(name)
         output_path = get_output_path(name, version, output_folder)
 
-        exporters.XmlExporter(input_path, output_path).generate_export()
-        exporters.JsonExporter(input_path, output_path).generate_export()
+        exporters.XMLExporter(input_path, output_path).generate_export()
+        exporters.JSONExporter(input_path, output_path).generate_export()
 
 
 def compress_exports(version: str):

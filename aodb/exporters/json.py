@@ -9,7 +9,7 @@ from xml.etree import ElementTree
 from .base import BaseExporter
 
 
-class JsonExporter(BaseExporter):
+class JSONExporter(BaseExporter):
     def _generate_export(self):
         export_file = self.export_file.format('json')
 
